@@ -37,7 +37,7 @@ app.post("/analyze-spending", async (req, res) => {
     res.json({ analysis: gptResponse.choices[0].text });
   } catch (error) {
     console.error("Error calling OpenAI API:", error);
-    res.status(500).json({ error: "Error processing request" });
+    res.status(500).json({ error: "Error processing you OpenAI request" });
   }
 });
 
@@ -47,7 +47,8 @@ function createPrompt(data) {
     prompt += `Category: ${item.category}, Amount: ${item.amount}\n`;
   }
 
-  prompt += "\nIdentify any notable spending patterns or insights.";
+  prompt +=
+    "\n Please list up to four paragraphs with each paragraph describing a notable spending patter or Insite. Please add a new line at the end of each paragraph. Also add 5 spaces in front of the first word in each paragraph. \n";
 
   return prompt;
 }
